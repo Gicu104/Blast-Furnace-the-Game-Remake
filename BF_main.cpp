@@ -5,6 +5,7 @@
 #include <fstream>
 #include <conio.h>
 #include <cstdlib>
+#include <string>
 
 using namespace std;
 CONSOLE_SCREEN_BUFFER_INFO scrBufferInfo;
@@ -16,6 +17,8 @@ RECT ConsoleRect;
 int SCREEN_WIDTH;
 int SCREEN_HEIGHT;
 int options[2];
+const int numOfStrings = 27;
+string STRINGS[numOfStrings];
 
 void setCursor(bool visible, DWORD size);
 void bufferWindow();
@@ -25,15 +28,17 @@ void drawBorder();
 void mainMenu();
 void optionsMenu();
 void resolutionMenu();
+void languageMenu();
 int menuPointer(const int N, int PosX, int* PosY = new int[1]);
 void resetOptions();
 void loadOptions();
+void loadStrings();
 
 int main() {
 	loadOptions();
 	//cout << options[0] << options[1];
 	//Sleep(1000);
-	resolution(options[0]);
+	//resolution(options[0]);
 	mainMenu();
 	return 0;
 }
@@ -119,16 +124,17 @@ void mainMenu() {
 	const int N = 5;
 	int menuPosX = SCREEN_WIDTH / 2 - 8;
 	int menuPosY[N];
+	//STRINGS positions 2-6
 	gotoxy(SCREEN_WIDTH / 2 - 6, menuPosY[0] = SCREEN_HEIGHT / 2 - 2);
-	cout << "New Game";
+	cout << STRINGS[2];
 	gotoxy(SCREEN_WIDTH / 2 - 6, menuPosY[1] = SCREEN_HEIGHT / 2 - 1);
-	cout << "Load Game";
+	cout << STRINGS[3];
 	gotoxy(SCREEN_WIDTH / 2 - 6, menuPosY[2] = SCREEN_HEIGHT / 2);
-	cout << "Options";
+	cout << STRINGS[4];
 	gotoxy(SCREEN_WIDTH / 2 - 6, menuPosY[3] = SCREEN_HEIGHT / 2 + 1);
-	cout << "Credits";
+	cout << STRINGS[5];
 	gotoxy(SCREEN_WIDTH / 2 - 6, menuPosY[4] = SCREEN_HEIGHT / 2 + 2);
-	cout << "Exit";
+	cout << STRINGS[6];
 	switch (menuPointer(N, menuPosX, menuPosY))
 	{
 	case 3:
@@ -146,18 +152,19 @@ void optionsMenu() {
 	const int N = 4;
 	int optionsPosX = SCREEN_WIDTH / 2 - 8;
 	int optionsPosY[N];
+	//STRINGS positions 10-13
 	gotoxy(SCREEN_WIDTH / 2 - 6, optionsPosY[0] = SCREEN_HEIGHT / 2 - 1);
-	cout << "Language";
+	cout << STRINGS[10];
 	gotoxy(SCREEN_WIDTH / 2 - 6, optionsPosY[1] = SCREEN_HEIGHT / 2);
-	cout << "Resolution";
+	cout << STRINGS[11];
 	gotoxy(SCREEN_WIDTH / 2 - 6, optionsPosY[2] = SCREEN_HEIGHT / 2 + 1);
-	cout << "Reset options";
+	cout << STRINGS[12];
 	gotoxy(SCREEN_WIDTH / 2 - 6, optionsPosY[3] = SCREEN_HEIGHT / 2 + 2);
-	cout << "Save and return";
+	cout << STRINGS[13];
 	switch (menuPointer(N, optionsPosX, optionsPosY))
 	{
 	case 1:
-		//languageMenu();
+		languageMenu();
 	case 2:
 		resolutionMenu();
 	case 3:
@@ -182,14 +189,15 @@ void resolutionMenu() {
 	const int N = 4;
 	int resolutionPosX = SCREEN_WIDTH / 2 - 8;
 	int resolutionPosY[N];
+	//STRINGS positions 17-20
 	gotoxy(SCREEN_WIDTH / 2 - 6, resolutionPosY[0] = SCREEN_HEIGHT / 2 - 1);
-	cout << "Small";
+	cout << STRINGS[17];
 	gotoxy(SCREEN_WIDTH / 2 - 6, resolutionPosY[1] = SCREEN_HEIGHT / 2);
-	cout << "Medium";
+	cout << STRINGS[18];
 	gotoxy(SCREEN_WIDTH / 2 - 6, resolutionPosY[2] = SCREEN_HEIGHT / 2 + 1);
-	cout << "Big";
-	gotoxy(SCREEN_WIDTH / 2 - 6, resolutionPosY[3] = SCREEN_HEIGHT / 2 + 2);
-	cout << "Return";
+	cout << STRINGS[19];
+	gotoxy(SCREEN_WIDTH / 2 - 6, resolutionPosY[3] = SCREEN_HEIGHT / 2 + 3);
+	cout << STRINGS[20];
 	int o = menuPointer(N, resolutionPosX, resolutionPosY);
 	if (o != 4)
 	{
@@ -197,6 +205,30 @@ void resolutionMenu() {
 		resolution(o);
 		Sleep(50);
 		resolutionMenu();
+	}
+	else {
+		optionsMenu();
+	}
+}
+void languageMenu() {
+	system("cls");
+	drawBorder();
+	const int N = 3;
+	int languagePosX = SCREEN_WIDTH / 2 - 8;
+	int languagePosY[N];
+	//STRINGS positions 24-26
+	gotoxy(SCREEN_WIDTH / 2 - 6, languagePosY[0] = SCREEN_HEIGHT / 2 - 1);
+	cout << STRINGS[24];
+	gotoxy(SCREEN_WIDTH / 2 - 6, languagePosY[1] = SCREEN_HEIGHT / 2);
+	cout << STRINGS[25];
+	gotoxy(SCREEN_WIDTH / 2 - 6, languagePosY[2] = SCREEN_HEIGHT / 2 + 2);
+	cout << STRINGS[26];
+	int o = menuPointer(N, languagePosX, languagePosY);
+	if (o != 3)
+	{
+		options[1] = o;
+		loadStrings();
+		languageMenu();
 	}
 	else {
 		optionsMenu();
@@ -253,6 +285,11 @@ void resetOptions() {
 	loadOptions();
 }
 void loadOptions() {
+	//options table structure
+	//table pos;	meaning;	values;
+	//0; resolution; 1, 2, 3;
+	//1; language, 1-english, 2-polish;
+
 	//load options to table
 	fstream loadOptions;
 	loadOptions.open("options.txt", ios::in);
@@ -268,4 +305,22 @@ void loadOptions() {
 
 	//apply loaded options
 	resolution(options[0]);
+	loadStrings();
+}
+void loadStrings() {
+	fstream readStrings;
+	if (options[1] == 1)
+	{
+		readStrings.open("language/en_EN.txt", ios::in);
+	}
+	else
+	{
+		readStrings.open("language/pl_PL.txt", ios::in);
+	}
+	for (int i = 1; i <= numOfStrings; i++)
+	{
+		getline(readStrings, STRINGS[i]);
+	}
+
+	readStrings.close();
 }

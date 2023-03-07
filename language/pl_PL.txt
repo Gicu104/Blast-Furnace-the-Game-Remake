@@ -1,0 +1,26 @@
+//menu glowne 5 strings		//wersja bez polskich znakow
+Nowa Gra
+Wczyja Gre
+Opcje
+Autorzy
+Wyjscie
+
+
+//menu opcji 4 strings
+Jezyk
+Rozdzielczosc
+Resetuj opcje
+Zapisz i wroc
+
+
+//menu rozdzielczosci 4 strings
+Mala
+Srednia
+Duza
+Wroc
+
+
+//menu jezyka 3 strings
+English
+Polski
+Wroc

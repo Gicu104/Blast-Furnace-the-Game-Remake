@@ -1,0 +1,26 @@
+//main menu 5 strings
+New Game
+Load Game
+Options
+Credits
+Exit
+
+
+//options menu 4 strings
+Language
+Resolution
+Reset options
+Save and return
+
+
+//resolution menu 4 strings
+Small
+Medium
+Big
+Return
+
+
+//language menu 3 strings
+English
+Polski
+Return
