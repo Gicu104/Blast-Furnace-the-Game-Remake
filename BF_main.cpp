@@ -33,6 +33,7 @@ int menuPointer(const int N, int PosX, int* PosY = new int[1]);
 void resetOptions();
 void loadOptions();
 void loadStrings();
+void author();
 
 int main() {
 	loadOptions();
@@ -126,19 +127,21 @@ void mainMenu() {
 	int menuPosY[N];
 	//STRINGS positions 2-6
 	gotoxy(SCREEN_WIDTH / 2 - 6, menuPosY[0] = SCREEN_HEIGHT / 2 - 2);
-	cout << STRINGS[2];
+	cout << STRINGS[2]; //new game
 	gotoxy(SCREEN_WIDTH / 2 - 6, menuPosY[1] = SCREEN_HEIGHT / 2 - 1);
-	cout << STRINGS[3];
+	cout << STRINGS[3]; ///load game
 	gotoxy(SCREEN_WIDTH / 2 - 6, menuPosY[2] = SCREEN_HEIGHT / 2);
-	cout << STRINGS[4];
+	cout << STRINGS[4]; //options
 	gotoxy(SCREEN_WIDTH / 2 - 6, menuPosY[3] = SCREEN_HEIGHT / 2 + 1);
-	cout << STRINGS[5];
+	cout << STRINGS[5]; //credits
 	gotoxy(SCREEN_WIDTH / 2 - 6, menuPosY[4] = SCREEN_HEIGHT / 2 + 2);
-	cout << STRINGS[6];
+	cout << STRINGS[6]; //exit
 	switch (menuPointer(N, menuPosX, menuPosY))
 	{
 	case 3:
 		optionsMenu();
+	case 4:
+		authors();
 	case 5:
 		system("cls");
 		exit(1);
@@ -154,13 +157,13 @@ void optionsMenu() {
 	int optionsPosY[N];
 	//STRINGS positions 10-13
 	gotoxy(SCREEN_WIDTH / 2 - 6, optionsPosY[0] = SCREEN_HEIGHT / 2 - 1);
-	cout << STRINGS[10];
+	cout << STRINGS[10]; //language
 	gotoxy(SCREEN_WIDTH / 2 - 6, optionsPosY[1] = SCREEN_HEIGHT / 2);
-	cout << STRINGS[11];
+	cout << STRINGS[11]; //resolution
 	gotoxy(SCREEN_WIDTH / 2 - 6, optionsPosY[2] = SCREEN_HEIGHT / 2 + 1);
-	cout << STRINGS[12];
+	cout << STRINGS[12]; //reset
 	gotoxy(SCREEN_WIDTH / 2 - 6, optionsPosY[3] = SCREEN_HEIGHT / 2 + 2);
-	cout << STRINGS[13];
+	cout << STRINGS[13]; //return
 	switch (menuPointer(N, optionsPosX, optionsPosY))
 	{
 	case 1:
@@ -191,13 +194,13 @@ void resolutionMenu() {
 	int resolutionPosY[N];
 	//STRINGS positions 17-20
 	gotoxy(SCREEN_WIDTH / 2 - 6, resolutionPosY[0] = SCREEN_HEIGHT / 2 - 1);
-	cout << STRINGS[17];
+	cout << STRINGS[17]; //1
 	gotoxy(SCREEN_WIDTH / 2 - 6, resolutionPosY[1] = SCREEN_HEIGHT / 2);
-	cout << STRINGS[18];
+	cout << STRINGS[18]; //2
 	gotoxy(SCREEN_WIDTH / 2 - 6, resolutionPosY[2] = SCREEN_HEIGHT / 2 + 1);
-	cout << STRINGS[19];
+	cout << STRINGS[19]; //3
 	gotoxy(SCREEN_WIDTH / 2 - 6, resolutionPosY[3] = SCREEN_HEIGHT / 2 + 3);
-	cout << STRINGS[20];
+	cout << STRINGS[20]; //return
 	int o = menuPointer(N, resolutionPosX, resolutionPosY);
 	if (o != 4)
 	{
@@ -218,11 +221,11 @@ void languageMenu() {
 	int languagePosY[N];
 	//STRINGS positions 24-26
 	gotoxy(SCREEN_WIDTH / 2 - 6, languagePosY[0] = SCREEN_HEIGHT / 2 - 1);
-	cout << STRINGS[24];
+	cout << STRINGS[24]; //english
 	gotoxy(SCREEN_WIDTH / 2 - 6, languagePosY[1] = SCREEN_HEIGHT / 2);
-	cout << STRINGS[25];
+	cout << STRINGS[25]; //polish
 	gotoxy(SCREEN_WIDTH / 2 - 6, languagePosY[2] = SCREEN_HEIGHT / 2 + 2);
-	cout << STRINGS[26];
+	cout << STRINGS[26]; //return
 	int o = menuPointer(N, languagePosX, languagePosY);
 	if (o != 3)
 	{
@@ -323,4 +326,6 @@ void loadStrings() {
 	}
 
 	readStrings.close();
+}
+void author() {
 }
